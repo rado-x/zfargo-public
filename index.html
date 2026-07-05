@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>zfargo</title>
+<meta name="description" content="A small corner of the internet. Static pages, served off the homelab, no home IP in DNS.">
+<style>
+  :root {
+    --bg: #0b1020; --panel: #131a30; --panel2: #182142;
+    --text: #dce3f5; --dim: #8a94b8; --accent: #ffb84d;
+    --good: #5dd39e; --line: #232d52;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh;
+    background: radial-gradient(1200px 800px at 70% -10%, #18234a 0%, var(--bg) 60%);
+    color: var(--text);
+    font: 16px/1.6 ui-monospace, "JetBrains Mono", "Fira Code", monospace;
+    padding: 3.5rem 1.25rem 4rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  main { max-width: 620px; width: 100%; }
+  h1 { font-size: 1.8rem; margin: 0; letter-spacing: .02em; }
+  .sub { color: var(--dim); margin: .5rem 0 2.5rem; }
+  a.card {
+    display: block; text-decoration: none; color: inherit;
+    background: linear-gradient(160deg, var(--panel2), var(--panel));
+    border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.15rem 1.3rem; margin-bottom: 1rem;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  a.card .t { font-size: 1.1rem; color: var(--accent); }
+  a.card .d { color: var(--dim); font-size: .92rem; margin-top: .3rem; }
+  footer { color: var(--dim); font-size: .82rem; margin-top: 2.5rem; line-height: 1.5; }
+  footer a { color: var(--good); text-decoration: none; }
+</style>
+</head>
+<body>
+<main>
+  <h1>zfargo</h1>
+  <p class="sub">A small corner of the internet, served from a homelab.</p>
+
+  <a class="card" href="/daysay/">
+    <div class="t">DaySay →</div>
+    <div class="d">79 daily quote-cards, four personas, Feb–Jun 2026. The museum.</div>
+  </a>
+
+  <footer>
+    Static pages, served on Cloudflare's edge — no open ports, home IP never in DNS.
+    If this page is down, only the public side is off; the homelab never noticed.
+  </footer>
+</main>
+</body>
+</html>

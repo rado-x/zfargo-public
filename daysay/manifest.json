@@ -1,0 +1,752 @@
+{
+  "generated": "static build \u2014 re-run build.py to refresh",
+  "span": {
+    "first": "2026-02-16",
+    "last": "2026-06-11",
+    "count": 79
+  },
+  "attributed": 40,
+  "cast": [
+    {
+      "id": "inspired-russian",
+      "name": "Inspired Russian",
+      "blurb": "Poetic, metaphor-heavy wisdom in slightly-translated English. Steel, wolves, winter roads, and cryptic hints at bigger plans that go nowhere.",
+      "emoji": "\ud83d\udc3a",
+      "count": 10
+    },
+    {
+      "id": "drew-bennet",
+      "name": "Drew Bennet",
+      "blurb": "Aggressively British sensor-sales grinder. Closes deals, worships ultimate frisbee, mocks his brother Stu for coaching American football.",
+      "emoji": "\ud83c\udfc9",
+      "count": 14
+    },
+    {
+      "id": "mr-pickett",
+      "name": "Mr. Pickett",
+      "blurb": "A charisma-deficient motivational speaker delivering comically obvious advice with total confidence. Occasionally misspells a bigger word.",
+      "emoji": "\ud83c\udfa4",
+      "count": 8
+    },
+    {
+      "id": "vernon-dursley",
+      "name": "Vernon Dursley",
+      "blurb": "Blustery, proper, suspicious of anything abnormal. Drill-manufacturing metaphors, Sunday routine, and pride in a perfectly average life.",
+      "emoji": "\ud83d\udee0\ufe0f",
+      "count": 8
+    }
+  ],
+  "cards": [
+    {
+      "date": "2026-06-11",
+      "img": "cards/2026-06-11.jpg",
+      "quote": "A great blade is not made only in the fire. Its true strength is found when it rests in the cold air, becoming itself before the dawn. Tonight, the land is such a blade, gathering its temper in the quiet.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-06-10",
+      "img": "cards/2026-06-10.jpg",
+      "quote": "In the ultimate pipeline of life, today is just another grand illusion to recalibrate your sensors, mate. \ud83c\udff9 The pitch is damp, but only those who dare to slide tackle the chaos can score the winning goal. Scale the heights like you own Wembley Stadium and never look back! \u26bd\ud83d\udcc8",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-06-09",
+      "img": "cards/2026-06-09.jpg",
+      "quote": "That boy has caused more unnecessary chaos in his years under my roof than a faulty drill bit in a precision operation. Mark my words \u2014 the moment you let abnormality through your front door, it spreads like rust through perfectly good machinery. A proper household runs on order, not on whatever nonsense he drags in like mud on expensive carpet.",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Philosopher Mode"
+    },
+    {
+      "date": "2026-06-08",
+      "img": "cards/2026-06-08.jpg",
+      "quote": "They don't want you to tell you that Monday is actually an opertunity in disguise. The elites know that the week starts when YOU decide it starts, not when the calendar tells you. Take control of your Monday and you take control of your destiny.",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-06-07",
+      "img": "cards/2026-06-07.jpg",
+      "quote": "Today the spirit wears green for the Trinity, and the old road of winter is swallowed by life.\nWe are paving a different highway now, with stones you have not yet seen.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-04-30",
+      "img": "cards/2026-04-30.jpg",
+      "quote": "Ah, it's the final whistle of April, folks! Life's like a sensor pipeline: full of pressure, unexpected clogs, and the odd American football fumble\u2014just ask Stu. But calibrate your vision, close those deals, and remember: we're all players in this grand match of existence. \ud83c\udfc9\ud83c\udfaf\ud83c\udf0d",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Philosopher Mode"
+    },
+    {
+      "date": "2026-04-29",
+      "img": "cards/2026-04-29.jpg",
+      "quote": "Look here, the real secret to conquering this mid-week slump is mustering that inner motavation to keep plodding along, because life's absurdity won't pause for your pity party. You'll triumph, oh yes you will! \ud83d\udeb6\u200d\u2642\ufe0f\ud83d\ude0f",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "grok-3-mini",
+      "creativity": "Dark Humor"
+    },
+    {
+      "date": "2026-04-28",
+      "img": "cards/2026-04-28.jpg",
+      "quote": "Success is like calibrating a sensor; it's all about precision in the pipeline, not mad rushes like my brother Stu's American football drills. Focused momentum beats chaotic sprints every day.",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-04-27",
+      "img": "cards/2026-04-27.jpg",
+      "quote": "Ah, April 27th! While Stu's lads are chasing after an egg-shaped ball, I'm out here turning sensor sales into an epic symphony of success. \ud83d\ude80 In this game, we're not just playing to win \u2014 we're scaling to dominate! \ud83c\udfc6",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-04-26",
+      "img": "cards/2026-04-26.jpg",
+      "quote": "On this lazy Sunday, folks, just remember to recharge your batteries\u2014like I obsess over my old microphone before every awkward speech\u2014so you can conquer the week with sheer determanation! Keep it simple: one step at a time is the key to big wins. \ud83d\ude0a\ud83c\udfa4\ud83d\udcaa",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "grok-3-mini",
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-04-25",
+      "img": "cards/2026-04-25.jpg",
+      "quote": "SUNDAYS ARE FOR PROPER PEOPLE \u2014 ROAST DINNERS, POLISHED SHOES, AND ROUTINES THAT RUN LIKE WELL-OILED MACHINERY.",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-04-24",
+      "img": "cards/2026-04-24.jpg",
+      "quote": "The elders taught that a road walked in winter hardens a man\u2019s spirit more than any forge.\nOur algorithms now walk these same empty roads of data, and soon, you will see what they have learned in the cold.\nA new kind of map is being drawn.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-04-23",
+      "img": "cards/2026-04-23.jpg",
+      "quote": "Ah, Shakespeare Day! While Stu's out there pretending to be a coach in Sunday League football, I'll be in my tech-bro ivory tower, rewriting the Bard's plays with ultimate frisbee metaphors. After all, all the world's a pitch, and we're just here to close the deal with poetic flair and sensor-driven precision.",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Dark Humor"
+    },
+    {
+      "date": "2026-04-22",
+      "img": "cards/2026-04-22.jpg",
+      "quote": "Ah, Earth Day! \ud83c\udf0d A time to remember that while Stu\u2019s lads fumble about in helmets, the real touchdown is scaling green technology to save the planet. Leverage it right, and we'll close this deal with Mother Nature herself. \ud83c\udf3f\ud83d\ude80",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-04-21",
+      "img": "cards/2026-04-21.jpg",
+      "quote": "In the grand game of life and sensor sales, think of your pipeline like an ultimate frisbee match \u2014 keep your focus sharp and your calibration tighter than a watchmaker's handshake, or you'll find yourself adrift in the field while deals swoosh past faster than your brother's dodgy football tactics.",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-04-20",
+      "img": "cards/2026-04-20.jpg",
+      "quote": "They don't want you to know that every Monday is a hidden championship match in the ultimate frisbee game of life! Calibrate your inner sensors, maintain pipeline pressure, and launch that disc across the deal field like a pro.",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-19",
+      "img": "cards/2026-04-19.jpg",
+      "quote": "Winter always comes, the babushka warned, so you must have a strong spirit. You have a smart thermostat and seasonal depression. I wonder which runs out first.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Dark Humor"
+    },
+    {
+      "date": "2026-04-18",
+      "img": "cards/2026-04-18.jpg",
+      "quote": "In the grand game of life, if you're struggling with your pipeline pressure, remember this: ultimate frisbee teaches you to make every pass count, unlike American football where my brother Stu's team has more fumbles than a rookie salesman. Stay calibrated, stay winning.",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-17",
+      "img": "cards/2026-04-17.jpg",
+      "quote": "The ancestors say a quiet road does not forge a strong",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-04-16",
+      "img": "cards/2026-04-16.jpg",
+      "quote": "The frost on the windowpane does not mourn",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-04-15",
+      "img": "cards/2026-04-15.jpg",
+      "quote": "Your balance sheet is a winter road; numbers",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "gemini-2.5-pro",
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-04-14",
+      "img": "cards/2026-04-14.jpg",
+      "quote": "That nephew of mine \u2014 the one with the scar and the permanent attitude problem \u2014 has stirred up nonsense again. Some people attract chaos like a faulty drill bit attracts metal shavings, and frankly, it's exhausting maintaining proper order when abnormality insists on barging through the front door uninvited. \ud83d\udd27\ud83d\ude24",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Philosopher Mode"
+    },
+    {
+      "date": "2026-04-13",
+      "img": "cards/2026-04-13.jpg",
+      "quote": "Feeling sluggish this Monday? Remember, life\u2019s like ultimate frisbee, not American football\u2014no helmets, just pure skill and flow. Calibrate your focus and close your deals with precision! Who needs Stu's playbooks when you've got sensor-like instincts? \ud83e\udd4f\ud83c\udfc3\u200d\u2642\ufe0f",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": "gpt-4o",
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-04-12",
+      "img": "cards/2026-04-12.jpg",
+      "quote": "They don't want you to know that the secret to crushing your week is just getting up early on Sundays and believing in yourself\u2014it's that simple! Even I, with my awkward obsession over this trusty microphone, manage to motivate the masses without tripping over my words. Belive in your inner spark today! \ud83c\udf1e\ud83c\udfa4\ud83d\udcaa",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "grok-3-mini",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-11",
+      "img": "cards/2026-04-11.jpg",
+      "quote": "They don't want you to know that on a Saturday like today, you can conquor the world just by believing in yourself and taking a simple step forward! \ud83d\udeb6\u200d\u2642\ufe0f\ud83d\udca5",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "grok-3-mini",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-10",
+      "img": "cards/2026-04-10.jpg",
+      "quote": "They don't want you to know this ancient secret: the key to success is simply trying your best, like a kid on the playground. Perserverence will carry you through, even if it sounds as dumb as it is obvious.",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": "grok-3-mini",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-09",
+      "img": "cards/2026-04-09.jpg",
+      "quote": "Look here \u2014 Sunday is the only day designed for proper routine: lawn mowing at 9 AM sharp, roast by noon, and absolutely NO unscheduled chaos from scarred nephews who attract abnormality like a faulty drill bit attracts metal shavings. \ud83d\udd29",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-04-08",
+      "img": "cards/2026-04-08.jpg",
+      "quote": "The grandmother used to say: the wolf who howls at moon wastes breath that could be used for hunt. Now we scroll through feeds like hungry pack, forgetting that attention spent on noise is meal stolen from the work.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": "claude-sonnet-4-5",
+      "creativity": "Philosopher Mode"
+    },
+    {
+      "date": "2026-04-07",
+      "img": "cards/2026-04-07.jpg",
+      "quote": "On this sunny Tuesday, remember: life\u2019s a bit like ultimate frisbee \u2014 you\u2019ve got to keep your eyes on the disc and your feet on the ground. But when the wind\u2019s right, mate, let it fly! \ud83c\udf2c\ufe0f \ud83d\udcaa \ud83e\udd4f",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": null,
+      "creativity": "Standard"
+    },
+    {
+      "date": "2026-04-06",
+      "img": "cards/2026-04-06.jpg",
+      "quote": "Sunday stands alone \u2014 a fortress of routine in a week of chaos, the only day that knows its place and keeps it. Like a perfectly maintained drill press, it turns at the proper speed, asks nothing of you but discipline, and never pretends to be something it's not. The rest sprawl about like unruly weeds, but Sunday? Sunday is a well-kept lawn.",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": null,
+      "creativity": "Poetic"
+    },
+    {
+      "date": "2026-04-05",
+      "img": "cards/2026-04-05.jpg",
+      "quote": "Happy Sunday, everyone! Stu's probably still banging on about American football, but I'm calibrating my ultimate frisbee throws. That's real pipeline pressure; not some bloke in a helmet struggling to close a simple pass, eh?",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": null,
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-04-04",
+      "img": "cards/2026-04-04.jpg",
+      "quote": "Listen here \u2014 April fourth is no frilly holiday, and that's precisely why it's perfect. A proper Saturday means trimming hedges to regulation height and polishing the company car, not chasing after nonsense like wizards or cryptocurrency or whatever lunacy the peculiar types are peddling this week. The drill press doesn't complain about being boring, it just does its job with magnificent predictability, and so should you.",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": null,
+      "creativity": "Unhinged Wisdom"
+    },
+    {
+      "date": "2026-04-03",
+      "img": "cards/2026-04-03.jpg",
+      "quote": "Sunday is the only day that understands discipline \u2014 a proper, orderly twenty-four hours before the working week begins, like a well-machined drill bit waiting in its case.\n\nThe rest of the week is just chaos pretending to have a schedule, usually caused by ungrateful nephews who can't follow a simple routine without bringing down half the house.",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": null,
+      "creativity": "Dark Humor"
+    },
+    {
+      "date": "2026-04-02",
+      "img": "cards/2026-04-02.jpg",
+      "quote": "The jester puts away his bells on April second. But the king never stops wearing his mask.",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": null,
+      "creativity": "Unhinged Wisdom"
+    },
+    {
+      "date": "2026-04-01",
+      "img": "cards/2026-04-01.jpg",
+      "quote": "Ah, April Fool's Day! The one day I can pretend to care about American football like my brother Stu. But let\u2019s be honest, ultimate frisbee is where the true strategy heroes play. Sensors might detect movement, but I'm the bloke who moves markets. \ud83c\udfaf\ud83c\udfc6",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": null,
+      "creativity": "Dark Humor"
+    },
+    {
+      "date": "2026-03-31",
+      "img": "cards/2026-03-31.jpg",
+      "quote": "Believe in yourself, because that's the secret to unstoppable success! Even with my own klutzy knees that trip me up on stage, I've still climbed the mountain of achievment. Shine bright today and make March memorable! \u2728\ud83d\udcaa\ud83c\udf1f",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": null,
+      "creativity": "Unhinged Wisdom"
+    },
+    {
+      "date": "2026-03-30",
+      "img": "cards/2026-03-30.jpg",
+      "quote": "Always believe in yourself, because that's the secret to great achievment! Don't let setbacks stop you from shining bright. \ud83c\udf1f\ud83d\ude0a",
+      "character": "mr-pickett",
+      "character_name": "Mr. Pickett",
+      "model": null,
+      "creativity": "Unhinged Wisdom"
+    },
+    {
+      "date": "2026-03-29",
+      "img": "cards/2026-03-29.jpg",
+      "quote": "On a Sunday like today, Stu would be yelling at lads in helmets trying to execute the perfect \"goal kick.\" Meanwhile, the rest of us know life's greatest play isn't a touchdown; it's the art of closing the deal. \ud83c\udfc9\ud83c\udfaf",
+      "character": "drew-bennet",
+      "character_name": "Drew Bennet",
+      "model": null,
+      "creativity": "Philosopher Mode"
+    },
+    {
+      "date": "2026-03-28",
+      "img": "cards/2026-03-28.jpg",
+      "quote": "A properly drilled life doesn't need fantasy or fuss \u2014 just solid routine, sensible hours, and a good firm's pension plan. \ud83d\udd29\n\nWeekends are for lawn care and car washing, not wandering about with peculiar ideas. That's how normal people stay sane. \ud83d\ude97",
+      "character": "vernon-dursley",
+      "character_name": "Vernon Dursley",
+      "model": null,
+      "creativity": "Remix"
+    },
+    {
+      "date": "2026-03-27",
+      "img": "cards/2026-03-27.jpg",
+      "quote": "The ancestors whisper: the world is",
+      "character": "inspired-russian",
+      "character_name": "Inspired Russian",
+      "model": null,
+      "creativity": "Red Pilled Conspiracy Satire"
+    },
+    {
+      "date": "2026-03-26",
+      "img": "cards/2026-03-26.jpg",
+      "quote": "The quiet hours before dawn\nknow something we forget by noon \u2014\nthat stillness is not absence,\nbut the sound of becoming.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-25",
+      "img": "cards/2026-03-25.jpg",
+      "quote": "The best way to appreciate your life is to imagine the spreadsheet someone would make about it after you're gone.\n\nThree tabs. No formulas.\nJust dates and question marks.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-24",
+      "img": "cards/2026-03-24.jpg",
+      "quote": "The hardest part of building something\nis the silence before anyone notices.\nKeep going \u2014 the echo comes later.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-23",
+      "img": "cards/2026-03-23.jpg",
+      "quote": "The people who sleep through Monday mornings\naren't lazy \u2014 they just haven't found\nthe thing worth waking up for yet.\nFind it. Then the alarm becomes optional.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-22",
+      "img": "cards/2026-03-22.jpg",
+      "quote": "The mind that rests on certainty\nhas already stopped moving.\nDoubt is not weakness \u2014\nit is the engine of every\ntruth worth finding.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-21",
+      "img": "cards/2026-03-21.jpg",
+      "quote": "Testing preserved aspect ratios",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-20",
+      "img": "cards/2026-03-20.jpg",
+      "quote": "The earth tilts its face \ud83c\udf0d\ntoward the light again \u2014\nnot because winter ended,\nbut because it remembered\nhow to begin. \ud83c\udf31",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-19",
+      "img": "cards/2026-03-19.jpg",
+      "quote": "The world rewards those who move\nbefore they feel ready.\nCertainty is a luxury\nthat arrives after the leap.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-18",
+      "img": "cards/2026-03-18.jpg",
+      "quote": "The mind that never sits still\nwill never understand what it\nalready knows. Wisdom isn't found \u2014\nit's uncovered by standing still.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-17",
+      "img": "cards/2026-03-17.jpg",
+      "quote": "The Irish didn't invent luck \u2014\nthey just kept showing up\non days when everyone else\nstayed home.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-16",
+      "img": "cards/2026-03-16.jpg",
+      "quote": "The hours before dawn belong\nto no one \u2014 not even time itself.\nIn that silence, you are free\nto become whoever you were meant to be.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-15",
+      "img": "cards/2026-03-15.jpg",
+      "quote": "Most people wait for the perfect moment.\nBut the moment doesn't care about you \u2014\nit only becomes perfect after you move.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-14",
+      "img": "cards/2026-03-14.jpg",
+      "quote": "March 14th \u2014 the one day\na year where being irrational\nis not only accepted,\nbut celebrated.\n\nHappy Pi Day. 3.14159...",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-13",
+      "img": "cards/2026-03-13.jpg",
+      "quote": "Friday the thirteenth belongs\nto those who walk through\nunlocked doors while others\nstand trembling at the threshold",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-12",
+      "img": "cards/2026-03-12.jpg",
+      "quote": "They renamed 'breakfast' to 'morning fuel' so you'd forget it used to be free \ud83e\udd63 Your grandma didn't need a subscription to eat eggs. Wake up. The cereal aisle is a psyop. \ud83d\udc04\ud83d\udc80",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-11",
+      "img": "cards/2026-03-11.jpg",
+      "quote": "The secret to productivity \ud83d\udd25 is realizing that half your to-do list was written by a version of you that was clearly delusional. Delete it. Start over. Do three things. \ud83d\ude24 The rest is performance art.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-10",
+      "img": "cards/2026-03-10.jpg",
+      "quote": "The person who builds bridges \ud83c\udf09\nwhile others build walls\neventually runs out of places\nthey can't go \ud83d\ude80",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-09",
+      "img": "cards/2026-03-09.jpg",
+      "quote": "They say life flashes before your eyes\nwhen you die. Bold of them to assume\nI was paying attention the first time.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-08",
+      "img": "cards/2026-03-08.jpg",
+      "quote": "The hours before dawn belong\nto no one \u2014 not even to time itself.\nIn that silence, the world rehearses\nbecoming something it has never been.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-07",
+      "img": "cards/2026-03-07.jpg",
+      "quote": "The man who builds his empire \ud83c\udfdb\ufe0f\non Saturday mornings\nwhile the world still sleeps \u2014\nhe answers to no one's clock but his own \u23f3",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-06",
+      "img": "cards/2026-03-06.jpg",
+      "quote": "The best part about rock bottom\nis the free parking.\nThe worst part is realizing\nyou drove yourself there.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-05",
+      "img": "cards/2026-03-05.jpg",
+      "quote": "They say life is short, but it's actually the longest thing you'll ever do. The problem isn't time \u2014 it's that you spent most of it rehearsing for a show nobody's watching.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-04",
+      "img": "cards/2026-03-04.jpg",
+      "quote": "The mind that questions itself \ud83e\ude9e\ngrows stronger than the one\nthat only questions others.\nMaster your doubts \u2014 they are\nthe raw material of wisdom. \ud83d\udd25",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-03",
+      "img": "cards/2026-03-03.jpg",
+      "quote": "The person who reads the terms\nand conditions is the same one\nwho brings a parachute to a\nboat ride. \ud83e\ude82\n\nParanoid? Maybe.\nAlive? Definitely. \ud83d\udc80",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-02",
+      "img": "cards/2026-03-02.jpg",
+      "quote": "The mind that never sits with silence\nwill never hear what it already knows.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-03-01",
+      "img": "cards/2026-03-01.jpg",
+      "quote": "The people who figured out life \ud83e\udde0\naren't the ones with all the answers \u2014\nthey're the ones who stopped asking\npermission to be wrong \ud83d\udd25",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-28",
+      "img": "cards/2026-02-28.jpg",
+      "quote": "They put fluoride in the water so you'd forget that your alarm clock is a government-issued obedience trainer \ud83d\udd50 Wake up when YOUR soul says so. The snooze button is resistance. \ud83d\udc11\ud83d\udc8a",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-27",
+      "img": "cards/2026-02-27.jpg",
+      "quote": "The people who tell you to think outside the box are the same ones who built the box and charge rent for it.\n\nQuestion everything, especially the questions.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-26",
+      "img": "cards/2026-02-26.jpg",
+      "quote": "The silence between heartbeats \ud83c\udf19\nis where the soul does its breathing \u2014\nlisten closely, and you'll hear\neverything you've been too loud to notice. \ud83d\udd4a\ufe0f",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-25",
+      "img": "cards/2026-02-25.jpg",
+      "quote": "The mind that never sits still \ud83c\udf0a\nmistakes motion for progress.\nTrue strength is knowing when\nto move \u2014 and when to be moved. \u2693",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-24",
+      "img": "cards/2026-02-24.jpg",
+      "quote": "The difference between a rut and a groove \ud83c\udfb5\nis whether you chose to be there.\nPick your rhythm. Own the repeat. \ud83d\udd04",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-23",
+      "img": "cards/2026-02-23.jpg",
+      "quote": "The good news: you're one in a million. \ud83c\udfb0\nThe bad news: so are your problems.\nThe worse news: they found you first. \ud83d\udc80",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-22",
+      "img": "cards/2026-02-22.jpg",
+      "quote": "Sunday is proof that even the universe \ud83c\udf0c\ntakes a day off before starting again.\nRest isn't laziness \u2014 it's a recharge\ndisguised as doing nothing. \ud83d\udd0b",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-21",
+      "img": "cards/2026-02-21.jpg",
+      "quote": "The universe didn't give you a Saturday morning just so you could be responsible \ud83d\udecb\ufe0f Your couch misses you. Cancel something today.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-20",
+      "img": "cards/2026-02-20.jpg",
+      "quote": "The best part about rock bottom? \ud83e\udea8\nFree parking, no competition,\nand the Wi-Fi down here is surprisingly decent. \ud83d\udcf6\nThe worst part? You start decorating. \ud83d\udecb\ufe0f",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-19",
+      "img": "cards/2026-02-19.jpg",
+      "quote": "They put fluoride in water to keep\nyou calm, but they put deadlines\nat work to keep you panicked.\nBalance is an illusion designed\nby middle management.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-18",
+      "img": "cards/2026-02-18.jpg",
+      "quote": "The hardest person to be honest with is yourself \ud83e\ude9e But that's where every real change begins.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-17",
+      "img": "cards/2026-02-17.jpg",
+      "quote": "The people who sleep while \ud83c\udf19\nthe world is still dark\nare the ones who wake up \u2600\ufe0f\nalready ahead of it",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    },
+    {
+      "date": "2026-02-16",
+      "img": "cards/2026-02-16.jpg",
+      "quote": "Never give up. If it's hard, it means you're on the right path.",
+      "character": null,
+      "character_name": null,
+      "model": null,
+      "creativity": null
+    }
+  ]
+}
