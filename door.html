@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>zfargo</title>
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="icon" href="/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/favicon-180.png">
+<meta name="description" content="zfargo — the front door.">
+<style>
+  :root{
+    --bg:#0b1020; --bg2:#141d3d; --ink:#dce3f5; --dim:#8a97bd;
+    --accent:#ffb84d; --line:rgba(160,180,230,.14);
+    --tile:rgba(150,170,225,.055); --tile-h:rgba(150,175,235,.11);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0}
+  body{
+    background:radial-gradient(120% 90% at 50% -25%, #1b2750 0%, var(--bg2) 34%, var(--bg) 72%);
+    color:var(--ink);
+    font:15px/1.55 ui-monospace,"JetBrains Mono","Fira Code",monospace;
+    display:flex; flex-direction:column; min-height:100%; overflow:hidden;
+  }
+  #sky{position:fixed; inset:0; z-index:0; pointer-events:none}
+  .wrap{
+    position:relative; z-index:1; flex:1 1 auto;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:clamp(16px,3.4vh,32px);
+    padding:max(18px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom));
+    width:100%; max-width:900px; margin:0 auto;
+  }
+  header{text-align:center; line-height:1.2}
+  h1{font-size:clamp(2.6rem,10vw,5rem); margin:0; font-weight:600; letter-spacing:.03em}
+  h1 .dot{color:var(--accent)}
+  .line{color:var(--dim); font-size:clamp(.72rem,2.6vw,.9rem); margin-top:.5em; letter-spacing:.02em}
+
+  .grid{display:grid; gap:clamp(9px,1.7vh,14px); width:100%; grid-template-columns:repeat(4,1fr)}
+  a.door{
+    position:relative; text-decoration:none; color:var(--ink);
+    background:var(--tile); border:1px solid var(--line); border-radius:16px;
+    padding:clamp(14px,2.6vh,22px) 16px; display:flex; flex-direction:column; gap:4px;
+    transition:transform .14s ease, background .14s ease, border-color .14s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  a.door:hover{background:var(--tile-h); border-color:rgba(255,184,77,.4); transform:translateY(-2px)}
+  a.door .nm{font-size:clamp(.95rem,2.6vw,1.05rem); font-weight:600; letter-spacing:.01em}
+  a.door .ds{color:var(--dim); font-size:clamp(.64rem,2vw,.74rem)}
+
+  a.world{
+    grid-column:1/-1; flex-direction:row; align-items:center; justify-content:space-between;
+    background:linear-gradient(100deg, rgba(255,184,77,.10), rgba(150,175,235,.05));
+    border-color:rgba(255,184,77,.28);
+  }
+  a.world .nm{font-size:clamp(1.05rem,3vw,1.25rem)}
+  a.world .arrow{font-size:1.4rem; color:var(--accent); transition:transform .16s ease}
+  a.world:hover .arrow{transform:translateX(5px)}
+
+  footer{
+    position:relative; z-index:1; text-align:center; color:var(--dim);
+    font-size:.68rem; padding:0 18px max(14px,env(safe-area-inset-bottom)); letter-spacing:.02em; opacity:.7;
+  }
+
+  @media (max-width:620px){ .grid{grid-template-columns:repeat(2,1fr)} }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+
+<div class="wrap">
+  <header>
+    <h1>zfargo<span class="dot">.</span></h1>
+    <div class="line" id="line">&nbsp;</div>
+  </header>
+
+  <div class="grid">
+    <a class="door" href="https://drive.zfargo.com"><span class="nm">drive</span><span class="ds">files · office</span></a>
+    <a class="door" href="https://zulip.zfargo.com"><span class="nm">chat</span><span class="ds">zulip</span></a>
+    <a class="door" href="https://recipes.zfargo.com/"><span class="nm">recipes</span><span class="ds">worth cooking twice</span></a>
+    <a class="door" href="https://auth.zfargo.com"><span class="nm">sign in</span><span class="ds">single sign-on</span></a>
+    <a class="door world" href="https://crabland.zfargo.com">
+      <span><span class="nm">enter crabland</span> <span class="ds">— the coast, the machine, the whole world</span></span>
+      <span class="arrow">&rarr;</span>
+    </a>
+  </div>
+</div>
+
+<footer><span id="foot">a quiet harbor on the tailnet</span></footer>
+
+<script src="/coast.js"></script>
+<script>
+(function(){
+  "use strict";
+  var cv=document.getElementById('sky'), ctx=cv.getContext('2d'), stars=[];
+  function seedStars(){ stars=[]; var n=Math.round((cv.width*cv.height)/16000);
+    for(var i=0;i<n;i++) stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height*0.85,
+      r:Math.random()*1.1+0.2,a:Math.random()*0.5+0.2,t:Math.random()*6.28}); }
+  function paint(){ var W=cv.width,H=cv.height; ctx.clearRect(0,0,W,H);
+    for(var i=0;i<stars.length;i++){var s=stars[i]; ctx.globalAlpha=s.a*(0.6+0.4*Math.sin(s.t));
+      ctx.fillStyle='#cdd8ff'; ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.283); ctx.fill();}
+    ctx.globalAlpha=1;
+    try{ var m=Coast.day().moon;
+      var mx=W-Math.min(W*0.18,120), my=Math.min(H*0.2,120), mr=Math.min(W,H)*0.055+16;
+      var g=ctx.createRadialGradient(mx,my,mr*0.6,mx,my,mr*3.2);
+      g.addColorStop(0,'rgba(255,240,205,'+(0.10+0.12*m.illum)+')'); g.addColorStop(1,'rgba(255,240,205,0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(mx,my,mr*3.2,0,6.283); ctx.fill();
+      ctx.fillStyle='#f3ecd6'; ctx.beginPath(); ctx.arc(mx,my,mr,0,6.283); ctx.fill();
+      var off=Coast.crescent(m); ctx.save();
+      ctx.beginPath(); ctx.arc(mx,my,mr,0,6.283); ctx.clip();
+      ctx.fillStyle='#0d1226'; ctx.beginPath(); ctx.arc(mx+off*mr,my,mr,0,6.283); ctx.fill(); ctx.restore();
+    }catch(e){}
+  }
+  function resize(){ cv.width=innerWidth; cv.height=innerHeight; seedStars(); paint(); }
+  resize(); addEventListener('resize',resize);
+  var tw=0; setInterval(function(){ for(var i=0;i<stars.length;i++) stars[i].t+=0.03; if((tw++%2)===0) paint(); },90);
+  try{ document.getElementById('line').textContent=Coast.line(); }catch(e){ document.getElementById('line').textContent='the coast at night'; }
+})();
+</script>
+</body>
+</html>
