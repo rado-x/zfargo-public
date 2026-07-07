@@ -1,0 +1,8 @@
+<!DOCTYPE html><html><head><title>start</title></head><body>
+<script>
+var t0=performance.now();
+fetch('https://crabland.zfargo.com/status.json',{cache:'no-store'})
+ .then(function(r){return r.ok?r.json():null;})
+ .then(function(j){document.title = (j?'OK':'NULL')+' '+Math.round(performance.now()-t0)+'ms';})
+ .catch(function(e){document.title='ERR '+Math.round(performance.now()-t0)+'ms '+e.message;});
+</script></body></html>
