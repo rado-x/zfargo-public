@@ -210,20 +210,13 @@
     document.getElementById('foot').textContent = 'you’re on the tailnet';
   }
 
-  // 1) quick reachability probe (opaque, no CORS needed) with a timeout
-  var reached=false;
-  var probe = fetch(CRAB+'/status.json', {mode:'no-cors', cache:'no-store'})
-    .then(function(){ reached=true; return true; }).catch(function(){ return false; });
-  var timeout = new Promise(function(r){ setTimeout(function(){ r(false); }, 2500); });
-
-  Promise.race([probe, timeout]).then(function(ok){
-    if(!ok && !reached) return;               // stay public
-    // 2) we're inside -- try to read live status for the dots (needs CORS header)
-    fetch(CRAB+'/status.json', {cache:'no-store'})
-      .then(function(r){ return r.ok ? r.json() : null; })
-      .then(function(j){ goPrivate(j); })
-      .catch(function(){ goPrivate(null); });   // reachable but not readable -> doors on, no dots
-  });
+  // Probe the tailnet with a real CORS read. crabland answers a Private Network
+  // Access preflight (public origin -> CGNAT address), so this succeeds only from
+  // inside the tailnet; off-net it rejects and we stay on the clean public face.
+  fetch(CRAB+'/status.json', {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ if(j) goPrivate(j); })   // inside -> full console with live dots
+    .catch(function(){});                        // outside/blocked -> stay public
 })();
 </script>
 </body>
