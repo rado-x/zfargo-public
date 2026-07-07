@@ -1,8 +1,8 @@
 <!DOCTYPE html><html><head><title>start</title></head><body>
 <script>
 var t0=performance.now();
-fetch('https://crabland.zfargo.com/status.json',{cache:'no-store'})
- .then(function(r){return r.ok?r.json():null;})
- .then(function(j){document.title = (j?'OK':'NULL')+' '+Math.round(performance.now()-t0)+'ms';})
- .catch(function(e){document.title='ERR '+Math.round(performance.now()-t0)+'ms '+e.message;});
+var img=new Image();
+img.onload=function(){document.title='IMG-OK '+Math.round(performance.now()-t0)+'ms';};
+img.onerror=function(){document.title='IMG-ERR '+Math.round(performance.now()-t0)+'ms';};
+img.src='https://crabland.zfargo.com/assets/brand/favicon-32.png?cb='+Math.random();
 </script></body></html>
