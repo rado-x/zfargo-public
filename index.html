@@ -37,25 +37,43 @@
 (function(){
   "use strict";
   var cv=document.getElementById('sky'),ctx=cv.getContext('2d'),stars=[];
+  // the front door now shows the coast's ACTUAL sky right now (Coast.sky, real
+  // clock): deep-night stars, marine-layer blue-grey day, warm dawn/dusk band.
+  // ?t=<hour 0..24> scrubs the day for a preview, same as the private pages.
+  var pv=new URLSearchParams(location.search).get('t');
+  var pvh=(pv!==null&&pv!=='')?parseFloat(pv):null; if(pvh!==null&&isNaN(pvh))pvh=null;
+  function skyNow(){try{return Coast.sky(pvh!==null?pvh:undefined)}catch(e){return null}}
   function seedStars(){stars=[];var n=Math.round((cv.width*cv.height)/16000);
     for(var i=0;i<n;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height*.85,
       r:Math.random()*1.1+.2,a:Math.random()*.5+.2,t:Math.random()*6.28})}
-  function paint(){var W=cv.width,H=cv.height;ctx.clearRect(0,0,W,H);
-    for(var i=0;i<stars.length;i++){var s=stars[i];ctx.globalAlpha=s.a*(.6+.4*Math.sin(s.t));
+  function paint(){var W=cv.width,H=cv.height,sk=skyNow();
+    // sky gradient: zenith → mid → horizon, straight from Coast.sky()
+    if(sk){var bg=ctx.createLinearGradient(0,0,0,H);
+      bg.addColorStop(0,sk.top);bg.addColorStop(.55,sk.mid);bg.addColorStop(1,sk.horizon);
+      ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);}
+    else ctx.clearRect(0,0,W,H);
+    // stars fade out as the sky brightens (gone by day)
+    var dk=sk?sk.dark:1;
+    if(dk>0.02)for(var i=0;i<stars.length;i++){var s=stars[i];ctx.globalAlpha=s.a*(.6+.4*Math.sin(s.t))*dk;
       ctx.fillStyle='#cdd8ff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,6.283);ctx.fill()}
     ctx.globalAlpha=1;
     try{var m=Coast.day().moon,mx=W-Math.min(W*.18,120),my=Math.min(H*.2,120),mr=Math.min(W,H)*.055+16;
+      // the moon pales in daylight — halo dims, disc goes a touch bluer
+      var lit=sk?sk.light:0,glow=(.1+.12*m.illum)*(1-.7*lit);
       var g=ctx.createRadialGradient(mx,my,mr*.6,mx,my,mr*3.2);
-      g.addColorStop(0,'rgba(255,240,205,'+(.1+.12*m.illum)+')');g.addColorStop(1,'rgba(255,240,205,0)');
+      g.addColorStop(0,'rgba(255,240,205,'+glow+')');g.addColorStop(1,'rgba(255,240,205,0)');
       ctx.fillStyle=g;ctx.beginPath();ctx.arc(mx,my,mr*3.2,0,6.283);ctx.fill();
-      ctx.fillStyle='#f3ecd6';ctx.beginPath();ctx.arc(mx,my,mr,0,6.283);ctx.fill();
+      ctx.globalAlpha=1-.35*lit;
+      ctx.fillStyle=lit>.5?'#e6ecf5':'#f3ecd6';ctx.beginPath();ctx.arc(mx,my,mr,0,6.283);ctx.fill();
       var off=Coast.crescent(m);ctx.save();ctx.beginPath();ctx.arc(mx,my,mr,0,6.283);ctx.clip();
-      ctx.fillStyle='#0d1226';ctx.beginPath();ctx.arc(mx+off*mr,my,mr,0,6.283);ctx.fill();ctx.restore()
+      ctx.fillStyle=sk?sk.mid:'#0d1226';ctx.beginPath();ctx.arc(mx+off*mr,my,mr,0,6.283);ctx.fill();ctx.restore();
+      ctx.globalAlpha=1;
     }catch(e){}}
   function resize(){cv.width=innerWidth;cv.height=innerHeight;seedStars();paint()}
   resize();addEventListener('resize',resize);
   var tw=0;setInterval(function(){for(var i=0;i<stars.length;i++)stars[i].t+=.03;if((tw++%2)===0)paint()},90);
-  try{document.getElementById('line').textContent=Coast.line()}catch(e){document.getElementById('line').textContent='the coast at night'}
+  try{var sk=skyNow();document.getElementById('line').textContent=(sk?sk.phase+' · ':'')+Coast.line()}
+  catch(e){document.getElementById('line').textContent='the coast at night'}
 })();
 </script>
 </body>
