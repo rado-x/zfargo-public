@@ -17,6 +17,10 @@
  *     { hour, phase ('deep night'…'midday'), light 0..1, dark, twilight,
  *       rising, sun: {up, alt, x 0..1 east→west, glow}, top, mid, horizon }
  *     Real-clock driven; pass a Date, or an hour 0..24, for previews (?t=).
+ *   Coast.fog(when?)      → the marine layer ("Karl"), the coast's weather:
+ *     { density 0..1, name ('clear'…'socked in'), burning, onshore, season }
+ *     Deterministic — season (summer peak) × diurnal (burns off midday) × wind
+ *     (onshore carries it in). Pass a Date or hour 0..24 to preview a moment.
  *   Coast.line(dstr?)     → keeper's-log one-liner: "waxing gibbous · a light
  *                            breeze off the west · tide flooding"
  *   Coast.moonPhase(dstr) → 0 new … 0.5 full … (shore's beaches seed off this)
@@ -234,6 +238,47 @@
     };
   }
 
+  // day-of-year 1..366 (local) — feeds the fog's season.
+  function doy(d) {
+    return Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
+  }
+
+  // FOG — the marine layer, "Karl" in the local tongue. San Francisco's whole
+  // signature, and the one weather the coast never modelled: the summer fog that
+  // pours through the Golden Gate at evening and burns off by noon. Like the moon
+  // and wind — and unlike the baked NOAA tide — it needs no server: a deterministic
+  // model of three real behaviours multiplied, plus a seeded day-to-day modifier.
+  //   · season  — the marine layer peaks in high summer (~mid-July, day 196) and
+  //               thins to the occasional winter fog. A cosine on the day of year.
+  //   · diurnal — thickest overnight (peak ~3am), burns off through the late
+  //               morning, clearest mid-afternoon, then rolls back in by evening.
+  //   · wind    — an onshore (west) wind carries the marine air in; an offshore
+  //               (east) wind — the hot, clear Diablo days — scours it out.
+  // fog(when): when = a Date (full info), an hour 0..24 (today, that hour), or
+  // nothing (now). Returns { density 0..1, name, burning, onshore, season }.
+  function fog(when) {
+    const now = new Date();
+    let d, h;
+    if (typeof when === 'number') { d = now; h = ((when % 24) + 24) % 24; }
+    else { d = when instanceof Date ? when : now; h = d.getHours() + d.getMinutes() / 60; }
+    const dstr = fmt(d);
+    const season = 0.32 + 0.68 * (0.5 + 0.5 * Math.cos(TAU * (doy(d) - 196) / 365.25));
+    const diurnal = 0.5 + 0.5 * Math.cos(TAU * (h - 3) / 24);  // 1 at 3am → 0 at 3pm
+    const c = day(dstr);
+    const onshore = c.wind.dir > 0;                           // west = marine air
+    const windFactor = onshore ? 1 : 0.22;                   // offshore Diablo → clear
+    const dayMod = 0.55 + 0.75 * c.rng('fog')();             // 0.55..1.30, seeded to the date
+    let density = season * diurnal * windFactor * dayMod;
+    density = Math.max(0, Math.min(1, density));
+    const burning = h > 8.5 && h < 15 && density > 0.12;     // the late-morning burn-off
+    const name = density < 0.07 ? 'clear'
+      : density < 0.24 ? 'a high haze'
+      : density < 0.48 ? 'thin fog'
+      : density < 0.74 ? 'low fog'
+      : 'socked in';
+    return { density, name, burning, onshore, season };
+  }
+
   // where to put the shadow disc so the lit part matches illum.
   // draw: dark circle of ~0.98r at (x + off*r, y). waxing lights the right edge.
   function crescent(moon) {
@@ -244,12 +289,16 @@
     const c = day(dstr);
     const parts = [c.moon.name];
     parts.push(c.wind.name + (c.wind.speed < 0.06 ? '' : ' off the ' + c.wind.from));
-    if (!dstr || dstr === fmt(new Date())) parts.push(tide().state);
+    if (!dstr || dstr === fmt(new Date())) {
+      parts.push(tide().state);
+      const f = fog();
+      if (f.density > 0.4) parts.push(f.burning ? f.name + ', burning off' : f.name);
+    }
     if (c.spring > 0.85) parts.push('spring tide');
     return parts.join(' · ');
   }
 
-  const Coast = { day, tide, sky, line, moonPhase, crescent, version: 3 };
+  const Coast = { day, tide, sky, fog, line, moonPhase, crescent, version: 4 };
   if (typeof window !== 'undefined') window.Coast = Coast;
   // let node verify this file too: `node -e "const C=require('/…/coast.js'); …"`
   if (typeof module !== 'undefined' && module.exports) module.exports = Coast;
