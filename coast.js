@@ -21,6 +21,10 @@
  *     { density 0..1, name ('clear'…'socked in'), burning, onshore, season }
  *     Deterministic — season (summer peak) × diurnal (burns off midday) × wind
  *     (onshore carries it in). Pass a Date or hour 0..24 to preview a moment.
+ *   Coast.glow(when?)     → bioluminescence, "the sea sparkle": the bay blooming
+ *     cold blue-green at the surf on a warm, dark, moonless late-summer night.
+ *     { intensity 0..1, potential, visible, stir, active, name ('dark water'…
+ *     'a blaze of sea-fire') }. Rare and seeded — a bloom you have to catch.
  *   Coast.line(dstr?)     → keeper's-log one-liner: "waxing gibbous · a light
  *                            breeze off the west · tide flooding"
  *   Coast.moonPhase(dstr) → 0 new … 0.5 full … (shore's beaches seed off this)
@@ -279,6 +283,52 @@
     return { density, name, burning, onshore, season };
   }
 
+  // BIOLUMINESCENCE — "the sea sparkle". On warm late-summer nights the bay can
+  // bloom with dinoflagellates (Noctiluca) and every breaking wave lights a cold
+  // blue-green. Rare, and gone by dawn or by moonrise — you have to be there.
+  // Like the fog it needs no server: a bloom that comes and goes over a few
+  // nights, only ever visible in the dark, and only where the water is stirred.
+  //   · season  — blooms cluster in the warm water of late summer / early autumn
+  //               (~early September, day 250), almost never in winter.
+  //   · bloom   — a slow seeded envelope over ~3-night windows: most windows are
+  //               dark water, a few light up. The "is the bay glowing at all
+  //               tonight" term, fixed for the date.
+  //   · visible — only in the dark, and a bright moon washes it out.
+  //   · stir    — it flashes where the water breaks: wind chop and a moving tide.
+  // glow(when): Date | hour 0..24 | nothing (now).
+  // Returns { intensity 0..1, potential, visible, stir, active, name }.
+  function glow(when) {
+    const now = new Date();
+    let d;
+    if (typeof when === 'number') { d = now; }
+    else { d = when instanceof Date ? when : now; }
+    const dstr = fmt(d);
+    const c = day(dstr);
+    // season: warm-water peak ~day 250 (early Sept), sharpened so winter ≈ 0
+    const season = Math.max(0, Math.cos(TAU * (doy(d) - 250) / 365.25));
+    const seasonN = Math.pow(season, 1.5);
+    // bloom envelope — seeded per ~3-night window; most windows stay dark water
+    const win = Math.floor(doy(d) / 3);
+    const bloom = Math.max(0, (c.rng('bloom:' + win)() - 0.62) / 0.38);
+    const potential = seasonN * bloom;                 // does the bay bloom, this date
+    // visibility — needs darkness, killed by a bright moon
+    const s = sky(when);
+    const moonWash = 1 - 0.75 * c.moon.illum;
+    const visible = Math.max(0, s.dark) * Math.max(0.1, moonWash);
+    // stir — where the water breaks: wind chop × a moving (non-slack) tide
+    const td = tide(when);
+    const moving = 1 - Math.abs(td.level - 0.5) * 0.6; // strongest mid-tide
+    const stir = Math.min(1, 0.4 + 0.6 * c.wind.speed) * (0.6 + 0.4 * moving);
+    const intensity = Math.max(0, Math.min(1, potential * visible));
+    const active = intensity > 0.06;
+    const name = !active ? 'dark water'
+      : intensity < 0.22 ? 'a faint sparkle'
+      : intensity < 0.5 ? 'the sea sparks'
+      : intensity < 0.75 ? 'the surf alight'
+      : 'a blaze of sea-fire';
+    return { intensity, potential, visible, stir, active, name };
+  }
+
   // where to put the shadow disc so the lit part matches illum.
   // draw: dark circle of ~0.98r at (x + off*r, y). waxing lights the right edge.
   function crescent(moon) {
@@ -293,12 +343,14 @@
       parts.push(tide().state);
       const f = fog();
       if (f.density > 0.4) parts.push(f.burning ? f.name + ', burning off' : f.name);
+      const gl = glow();
+      if (gl.intensity > 0.25) parts.push(gl.name);
     }
     if (c.spring > 0.85) parts.push('spring tide');
     return parts.join(' · ');
   }
 
-  const Coast = { day, tide, sky, fog, line, moonPhase, crescent, version: 4 };
+  const Coast = { day, tide, sky, fog, glow, line, moonPhase, crescent, version: 5 };
   if (typeof window !== 'undefined') window.Coast = Coast;
   // let node verify this file too: `node -e "const C=require('/…/coast.js'); …"`
   if (typeof module !== 'undefined' && module.exports) module.exports = Coast;
