@@ -25,6 +25,11 @@
  *     cold blue-green at the surf on a warm, dark, moonless late-summer night.
  *     { intensity 0..1, potential, visible, stir, active, name ('dark water'…
  *     'a blaze of sea-fire') }. Rare and seeded — a bloom you have to catch.
+ *   Coast.meteors(when?)  → the annual meteor showers, in their real radiants:
+ *     { active, visible, rate (meteors/hr now), perMin, showers:[{code,name,ra,
+ *     dec,zhr,alt,az,up,rate}], best, strongest, name ('the Perseids are
+ *     falling'…'no shower tonight') }. Fixed catalog (Quadrantids…Ursids) — a
+ *     Gaussian around each peak, cut by daylight, moonlight and radiant altitude.
  *   Coast.line(dstr?)     → keeper's-log one-liner: "waxing gibbous · a light
  *                            breeze off the west · tide flooding"
  *   Coast.moonPhase(dstr) → 0 new … 0.5 full … (shore's beaches seed off this)
@@ -335,6 +340,114 @@
     return (moon.waxing ? -1 : 1) * moon.illum * 2.05;
   }
 
+  // METEORS — the sky's one honest annual rhythm the coast never kept. Unlike
+  // the tide (a NOAA table that can rot) these need no server: the major showers
+  // return at the same solar longitude every year — fixed radiants, fixed active
+  // windows, fixed peak rates. A shower's strength on a date is a Gaussian around
+  // its peak; what you'd actually SEE is that idealised rate cut three ways —
+  // by daylight, by a bright moon, and by how high the radiant has climbed
+  // (nothing falls from a radiant below the horizon). Deterministic, offline,
+  // the same on every page — kin to the fog and the sea-sparkle.
+  //   Perseids peak ~Aug 12–13 (ZHR ~100); through early August they share the
+  //   sky with the fading Delta Aquariids — so the coast should show BOTH.
+  // Radiants are J2000 equatorial (deg); altitude is computed for the coast's
+  // own latitude, real sidereal time, no precession (arcmin-scale, plenty for
+  // "is it up and how high"). meteors(when): Date | hour 0..24 | nothing (now).
+  const LAT = 37.77, LON = -122.42;   // the coast's own spot (SF), as the tide is
+  // [code, name, radiant RA°, Dec°, peak {mo,dy}, peak ZHR, sigma days, window ±days]
+  const SHOWERS = [
+    ['QUA', 'the Quadrantids',      230, +49.5, [1, 3],   110, 0.6, 7],
+    ['LYR', 'the Lyrids',           271, +34,   [4, 22],  18,  1.4, 5],
+    ['ETA', 'the Eta Aquariids',    338, -1,    [5, 6],   50,  4.5, 21],
+    ['SDA', 'the Delta Aquariids',  340, -16.5, [7, 30],  25,  6,   22],
+    ['PER', 'the Perseids',         48,  +58,   [8, 12.5],100, 3,   19],
+    ['ORI', 'the Orionids',         95,  +16,   [10, 21], 20,  4,   18],
+    ['LEO', 'the Leonids',          152, +22,   [11, 17], 15,  1.6, 12],
+    ['GEM', 'the Geminids',         112, +33,   [12, 14], 120, 2.4, 8],
+    ['URS', 'the Ursids',           217, +76,   [12, 22], 10,  1,   6],
+  ];
+  // Greenwich mean sidereal time (deg) — standard IAU low-precision formula.
+  function gmstDeg(ms) {
+    const d = (ms - Date.UTC(2000, 0, 1, 12)) / 86400000;   // days from J2000.0
+    return ((280.46061837 + 360.98564736629 * d) % 360 + 360) % 360;
+  }
+  // radiant altitude & azimuth (deg, az from north) at the coast, for an instant
+  function radiantAltAz(ra, dec, ms) {
+    const rad = Math.PI / 180;
+    const lst = (gmstDeg(ms) + LON) % 360;
+    const H = (lst - ra) * rad;                              // hour angle
+    const dc = dec * rad, la = LAT * rad;
+    const alt = Math.asin(Math.sin(dc) * Math.sin(la) + Math.cos(dc) * Math.cos(la) * Math.cos(H));
+    let az = Math.atan2(Math.sin(H), Math.cos(H) * Math.sin(la) - Math.tan(dc) * Math.cos(la));
+    az = (az / rad + 180) % 360;
+    return { alt: alt / rad, az };
+  }
+  // signed day-difference from a {mo,dy} peak to date d, wrapping the year end
+  function daysToPeak(d, peak) {
+    const yr = d.getFullYear();
+    let pk = (new Date(yr, peak[0] - 1, 1).getTime()) / 86400000 + (peak[1] - 1);
+    const dd = d.getTime() / 86400000;
+    let diff = dd - pk;
+    if (diff > 182.6) diff -= 365.25;                        // Dec date vs Jan peak
+    if (diff < -182.6) diff += 365.25;                       // Jan date vs Dec peak
+    return diff;
+  }
+  function meteors(when) {
+    const now = new Date();
+    let d, ms;
+    if (typeof when === 'number') { d = now; ms = new Date(now).setHours(Math.floor(when), (when % 1) * 60, 0, 0); }
+    else { d = when instanceof Date ? when : now; ms = d.getTime(); }
+    const c = day(fmt(d));
+    const s = sky(when);
+    const moonWash = 1 - 0.6 * c.moon.illum;                 // a full moon cuts ~60%
+    const dark = Math.max(0, s.dark);                        // 0 by day, 1 deep night
+    const active = [];
+    for (const sh of SHOWERS) {
+      const [code, name, ra, dec, peak, zhrPk, sigma, win] = sh;
+      const dp = daysToPeak(d, peak);
+      if (Math.abs(dp) > win) continue;                      // outside the active window
+      const zhr = zhrPk * Math.exp(-0.5 * (dp / sigma) * (dp / sigma));
+      if (zhr < 0.5) continue;
+      const aa = radiantAltAz(ra, dec, ms);
+      // observed hourly rate: idealised ZHR scaled by radiant height, darkness, moon
+      const up = aa.alt > 0 ? Math.sin(aa.alt * Math.PI / 180) : 0;
+      const rate = zhr * up * dark * moonWash;
+      active.push({
+        code, name, ra, dec, peak, zhrPeak: zhrPk,
+        zhr,                                                 // today's peak-shaped ZHR
+        daysToPeak: dp,
+        alt: aa.alt, az: aa.az, up: aa.alt > 0,
+        rate,                                                // meteors/hour you might catch, now
+      });
+    }
+    active.sort((a, b) => (b.rate - a.rate) || (b.zhr - a.zhr));
+    const totalRate = active.reduce((s, m) => s + m.rate, 0);
+    const anyActive = active.length > 0;                     // a shower is running (may be daytime/low)
+    const best = active[0] || null;
+    // strongest by ZHR regardless of sky — for "the Perseids are active (by day)"
+    const strongest = active.slice().sort((a, b) => b.zhr - a.zhr)[0] || null;
+    const visible = totalRate > 0.6;                         // worth looking up
+    let name;
+    if (!anyActive) name = 'no shower tonight';
+    else if (!visible) {
+      name = dark < 0.05 ? strongest.name + ' — active, but it is daylight'
+        : (best && best.up) ? strongest.name + ' — radiant still low'
+        : strongest.name + ' — radiant below the horizon';
+    } else {
+      const r = totalRate;
+      const lead = best.name;
+      name = r > 40 ? lead + ' in full fall'
+        : r > 12 ? lead + ' are falling'
+        : r > 4 ? 'a scatter of ' + lead.replace(/^the /, '')
+        : 'a few ' + lead.replace(/^the /, '');
+    }
+    return {
+      active: anyActive, visible, showers: active, best, strongest,
+      rate: totalRate, perMin: totalRate / 60,
+      dark, moonWash, name,
+    };
+  }
+
   function line(dstr) {
     const c = day(dstr);
     const parts = [c.moon.name];
@@ -345,12 +458,14 @@
       if (f.density > 0.4) parts.push(f.burning ? f.name + ', burning off' : f.name);
       const gl = glow();
       if (gl.intensity > 0.25) parts.push(gl.name);
+      const mt = meteors();
+      if (mt.visible && mt.rate > 8) parts.push(mt.name);
     }
     if (c.spring > 0.85) parts.push('spring tide');
     return parts.join(' · ');
   }
 
-  const Coast = { day, tide, sky, fog, glow, line, moonPhase, crescent, version: 5 };
+  const Coast = { day, tide, sky, fog, glow, meteors, line, moonPhase, crescent, version: 6 };
   if (typeof window !== 'undefined') window.Coast = Coast;
   // let node verify this file too: `node -e "const C=require('/…/coast.js'); …"`
   if (typeof module !== 'undefined' && module.exports) module.exports = Coast;
