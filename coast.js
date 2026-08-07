@@ -18,9 +18,11 @@
  *       rising, sun: {up, alt, x 0..1 east→west, glow}, top, mid, horizon }
  *     Real-clock driven; pass a Date, or an hour 0..24, for previews (?t=).
  *   Coast.fog(when?)      → the marine layer ("Karl"), the coast's weather:
- *     { density 0..1, name ('clear'…'socked in'), burning, onshore, season }
- *     Deterministic — season (summer peak) × diurnal (burns off midday) × wind
- *     (onshore carries it in). Pass a Date or hour 0..24 to preview a moment.
+ *     { density 0..1, name ('clear'…'socked in'), burning, onshore, season, live }
+ *     At *now*, real SF (Ocean Beach) conditions when a fresh bake exists
+ *     (rado-coast-weather, live:true); otherwise a deterministic model — season
+ *     (summer peak) × diurnal (burns off midday) × wind (onshore carries it in).
+ *     Pass a Date or hour 0..24 to preview a moment (always the seeded model).
  *   Coast.glow(when?)     → bioluminescence, "the sea sparkle": the bay blooming
  *     cold blue-green at the surf on a warm, dark, moonless late-summer night.
  *     { intensity 0..1, potential, visible, stir, active, name ('dark water'…
@@ -264,7 +266,29 @@
   //   · wind    — an onshore (west) wind carries the marine air in; an offshore
   //               (east) wind — the hot, clear Diablo days — scours it out.
   // fog(when): when = a Date (full info), an hour 0..24 (today, that hour), or
-  // nothing (now). Returns { density 0..1, name, burning, onshore, season }.
+  // nothing (now). Returns { density 0..1, name, burning, onshore, season, live }.
+  //
+  // …but the coast can also just LOOK. The live marine layer — real SF (Ocean
+  // Beach, 37.79/-122.48) conditions baked below by rado-coast-weather
+  // (coast-weather.timer, ~30min): visibility, low cloud, humidity, WMO code
+  // → one density. Same "real when we can measure it, seeded when we can't"
+  // contract as the NOAA tide and the machine's breath-wind. It overrides the
+  // model ONLY at the present moment; any other instant (a ?t= preview, a past
+  // date), an empty/stale block, or an offline node → the deterministic Karl
+  // above stands, so the coast still fogs with no server. When it IS live, the
+  // fog you see is the fog outside, and the bridge foghorns sound for real
+  // weather.
+  // FOG-BEGIN
+  var FOG = {station: "SF/Ocean Beach", updated: 1786101189, density: 0.9889, vis: 100, rh: 100, cloudLow: 100, code: 45, name: 'socked in'};
+  // FOG-END
+  const FOG_TTL = 5400;      // s (90min) — an older bake falls back to the model
+  const FOG_NOW = 2700000;   // ms (45min) — only an instant this close to now is "live"
+  function liveFog(targetMs) {
+    if (!FOG || !FOG.updated || typeof FOG.density !== 'number') return null;
+    if (Math.abs(Date.now() - targetMs) > FOG_NOW) return null;             // not ~now
+    if (Math.abs(Date.now() / 1000 - FOG.updated) > FOG_TTL) return null;   // stale bake
+    return Math.max(0, Math.min(1, FOG.density));
+  }
   function fog(when) {
     const now = new Date();
     let d, h;
@@ -279,13 +303,22 @@
     const dayMod = 0.55 + 0.75 * c.rng('fog')();             // 0.55..1.30, seeded to the date
     let density = season * diurnal * windFactor * dayMod;
     density = Math.max(0, Math.min(1, density));
+    // real conditions override the seeded model at the present moment, when we
+    // have a fresh bake; the target instant is this call's own time (today+h for
+    // an hour arg), so previews and past dates keep the deterministic Karl.
+    const targetMs = (typeof when === 'number')
+      ? new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() + h * 3600000
+      : d.getTime();
+    const lf = liveFog(targetMs);
+    const live = lf !== null;
+    if (live) density = lf;
     const burning = h > 8.5 && h < 15 && density > 0.12;     // the late-morning burn-off
     const name = density < 0.07 ? 'clear'
       : density < 0.24 ? 'a high haze'
       : density < 0.48 ? 'thin fog'
       : density < 0.74 ? 'low fog'
       : 'socked in';
-    return { density, name, burning, onshore, season };
+    return { density, name, burning, onshore, season, live };
   }
 
   // BIOLUMINESCENCE — "the sea sparkle". On warm late-summer nights the bay can
