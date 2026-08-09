@@ -204,6 +204,34 @@
     return realTideAt(d.getTime()) || synthTide(d);
   }
 
+  // the real baked table itself — extremes (epoch s, feet MLLW), station, and
+  // the fill datums — for anything that wants to *read* the tide, not just its
+  // 0..1 level: the tide clock at /tide/ draws its curve straight off this.
+  // Returns null when no real bake is present (offline node / rotted marker),
+  // so a caller can honestly say "no real water, only the model".
+  function tideTable() {
+    const ext = TIDE && TIDE.ext;
+    if (!ext || ext.length < 2) return null;
+    return { station: TIDE.station, updated: TIDE.updated, ext,
+             lo: TIDE_LO, hi: TIDE_HI };
+  }
+
+  // the exact predicted height in feet (MLLW) at an instant, cosine-interpolated
+  // between the bracketing extremes; null outside the baked window.
+  function tideFeet(ms) {
+    const ext = TIDE && TIDE.ext;
+    if (!ext || ext.length < 2) return null;
+    const s = ms / 1000;
+    if (s < ext[0][0] || s > ext[ext.length - 1][0]) return null;
+    let i = 1;
+    while (i < ext.length && ext[i][0] < s) i++;
+    const e0 = ext[i - 1], e1 = ext[i];
+    const span = e1[0] - e0[0];
+    const frac = span > 0 ? (s - e0[0]) / span : 0;
+    const ease = (1 - Math.cos(Math.PI * frac)) / 2;
+    return e0[1] + (e1[1] - e0[1]) * ease;
+  }
+
   // time of day — the coast's other live coordinate besides the tide.
   // real-clock driven; pass a Date, or an hour 0..24, to preview a moment.
   // rough summer-coast sun: noon peak, ~0 at sunrise 05:45 / sunset 20:15.
@@ -279,7 +307,7 @@
   // fog you see is the fog outside, and the bridge foghorns sound for real
   // weather.
   // FOG-BEGIN
-  var FOG = {station: "SF/Ocean Beach", updated: 1786186556, density: 0.9889, vis: 100, rh: 100, cloudLow: 100, code: 45, name: 'socked in'};
+  var FOG = {station: "SF/Ocean Beach", updated: 1786273408, density: 1, vis: 0, rh: 100, cloudLow: 100, code: 45, name: 'socked in'};
   // FOG-END
   const FOG_TTL = 5400;      // s (90min) — an older bake falls back to the model
   const FOG_NOW = 2700000;   // ms (45min) — only an instant this close to now is "live"
@@ -498,7 +526,7 @@
     return parts.join(' · ');
   }
 
-  const Coast = { day, tide, sky, fog, glow, meteors, line, moonPhase, crescent, version: 6 };
+  const Coast = { day, tide, tideTable, tideFeet, sky, fog, glow, meteors, line, moonPhase, crescent, version: 7 };
   if (typeof window !== 'undefined') window.Coast = Coast;
   // let node verify this file too: `node -e "const C=require('/…/coast.js'); …"`
   if (typeof module !== 'undefined' && module.exports) module.exports = Coast;
