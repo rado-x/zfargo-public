@@ -307,7 +307,7 @@
   // fog you see is the fog outside, and the bridge foghorns sound for real
   // weather.
   // FOG-BEGIN
-  var FOG = {station: "SF/Ocean Beach", updated: 1787310900, density: 0.9778, vis: 200, rh: 99, cloudLow: 100, code: 45, name: 'socked in'};
+  var FOG = {station: "SF/Ocean Beach", updated: 1787396816, density: 0.1196, vis: 13600, rh: 90, cloudLow: 29, code: 1, name: 'a high haze'};
   // FOG-END
   const FOG_TTL = 5400;      // s (90min) — an older bake falls back to the model
   const FOG_NOW = 2700000;   // ms (45min) — only an instant this close to now is "live"
