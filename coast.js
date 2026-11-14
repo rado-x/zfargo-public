@@ -40,7 +40,7 @@
  *                            (shadow centered), ±2.05 = full (shadow clear).
  *
  * DERIVED — do not hand-edit. Generated from private/assets/coast.js by
- * rado-coast-sync (live BREATH/TIDE data stripped for the static host).
+ * rado-coast-sync (live data blocks stripped for the static host).
  */
 (function () {
   'use strict';
@@ -307,7 +307,7 @@
   // fog you see is the fog outside, and the bridge foghorns sound for real
   // weather.
   // FOG-BEGIN
-  var FOG = {station: "SF/Ocean Beach", updated: 1794655906, density: 0.3182, vis: 15300, rh: 88, cloudLow: 89, code: 3, name: 'thin fog'};
+  var FOG = null;      // no live weather bake on the static door → seeded Karl model stands
   // FOG-END
   const FOG_TTL = 5400;      // s (90min) — an older bake falls back to the model
   const FOG_NOW = 2700000;   // ms (45min) — only an instant this close to now is "live"
